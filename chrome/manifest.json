@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "HPDB reading list",
+  "description": "Save pages to read later, explore new content.",
+  "version": "0.0.1",
+  "author": "Boris Desiatskii",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "All my tasks",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "64": "icon.png"
+  },
+  "permissions": ["storage", "identity", "tabs"]
+}

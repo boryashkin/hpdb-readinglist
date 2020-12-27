@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <link href="style/css/materialize.css" rel="stylesheet">
+        <script type="module" src="js/popup.js"></script>
+        <script src="js/axios.min.js"></script>
+        <script src="style/js/materialize.js"></script>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <style>
+            body {
+                width: 300px;
+                padding: 0;
+            }
+            .container.main {
+                width: 100%;
+            }
+            .collection-item .title {
+                font-size: 12px !important;
+            }
+            .progress {
+                background: #2adaf8 !important;
+            }
+            .progress .indeterminate {
+                background: #caf0f5 !important;
+            }
+            .btn-tiny {
+                height: 22.4px;
+                line-height: 22.4px;
+                font-size: 11px;
+            }
+            input.mini {
+                height: 12px;
+                font-size: 1em;
+            }
+        </style>
+        <title>HPDB reading list</title>
+    </head>
+    <body id="body">
+        <div class="container main">
+            <div class="progress hide">
+                <div class="indeterminate"></div>
+            </div>
+            <div class="row">
+                <div class="col s12 center">
+                    <h5 id="header"><img src="icon.png" width="18"> Reading list</h5>
+                </div>
+                <div class="col s12 center">
+                    <b class="grey-text" id="extension-version"></b>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <ul id="main-tabs" class="tabs">
+                        <li class="tab col s3"><a class="active" href="#tasks">Сохраненки</a></li>
+                        <li class="tab col s3"><a href="#loginList">Вход</a></li>
+                    </ul>
+                </div>
+                <div id="loginList" class="col s12">
+                    <div class="progress hide">
+                        <div class="indeterminate"></div>
+                    </div>
+                    <div class="container">
+                        <ul class="collapsible" id="authContainer">
+
+                        </ul>
+                    </div>
+                </div>
+                <div id="tasks" class="col s12">
+                    <div class="progress hide">
+                        <div class="indeterminate"></div>
+                    </div>
+                    <ul class="collection" id="taskList">
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center grey-text">
+                    <b>Обратная связь:</b>
+                    <ul>
+                        <li>Почта: <a href="mailto:hpdb@borisd.ru" target="_blank">hpdb@borisd.ru</a></li>
+                        <li>Vk: <a href="https://vk.com/hpdbru" target="_blank">vk.com/hpdbru</a></li>
+                    </ul>
+                </div>
+                <div class="col s12 center grey-text">
+                    <b>Thanks to:</b>
+                    <ul>
+                        <li>Design framework: <a href="https://materializecss.com">materializecss.com</a></li>
+                        <li>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></li>
+                    </ul>
+                </div>
+                <div class="col s12 center grey-text">
+                    <a href="https://borisd.ru" target="_blank">&copy; borisd.ru</a>
+                </div>
+            </div>
+        </div>
+        <script src="style/js/init.js"></script>
+    </body>
+</html>
