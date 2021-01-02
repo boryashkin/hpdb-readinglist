@@ -1,34 +1,37 @@
 import {authForm, authorizedBlock} from "../templates.js";
 import {AuthFormData, AuthFormHeader, AuthFormInput, TaskItem} from "../classes.js";
-import {VendorApi} from "./VendorApi.js";
-import {ApiContainer} from "./ApiContainer.js";
+import {AuthApi} from "./AuthApi.js";
+import {ApiContainer} from "../classes/ApiContainer.js";
 
-export class HpdbApi extends VendorApi {
+export class HpdbApi extends AuthApi {
     init() {
         let api = this;
         this.name = "HPDB";
         this.icon = "icon.png";
         return new Promise(function(resolve, reject) {
-            chrome.storage.sync.get(['hpdbApiStore'], function(result) {
-                api.setAuthData(result.hpdbApiStore);
-                console.log(result);
-                console.log(api.getAuthData());
+            chrome.storage.sync.get(['hpdbAuthStore'], function(result) {
+                api.setAuthData(result.hpdbAuthStore);
+                HpdbApi._debug(result);
+                HpdbApi._debug(api.getAuthData());
                 resolve(result);
             });
         });
     }
+    getBearerToken() {
+        return this.getAuthData().token;
+    }
     persistAuthData() {
         let hpdb = this;
         return new Promise(function(resolve, reject) {
-            chrome.storage.sync.set({hpdbApiStore: hpdb.getAuthData()}, function() {
-                console.log('Saved auth data to db');
+            chrome.storage.sync.set({hpdbAuthStore: hpdb.getAuthData()}, function() {
+                HpdbApi._debug('Saved auth data to db');
                 resolve();
             });
         });
     }
     isAuthorized() {
-        console.log('isAuthorized hpdb?');
-        console.log(this.getAuthData());
+        HpdbApi._debug('isAuthorized hpdb?');
+        HpdbApi._debug(this.getAuthData());
         let data = this.getAuthData();
 
         return data !== null && typeof data !== "undefined" && typeof data.token === "string";
@@ -77,15 +80,15 @@ export class HpdbApi extends VendorApi {
         let hpdb = this;
         let hpdbAuthForm = document.getElementById('hpdb-auth');
         if (!hpdbAuthForm) {
-            console.log('unable to find hpdb form');
-            console.log(document);
+            HpdbApi._debug('unable to find hpdb form');
+            HpdbApi._debug(document);
             return null;
         }
         let hpdbEmailInput = document.getElementById('hpdbEmail');
         let hpdbPasswordInput = document.getElementById('hpdbPassword');
         hpdbAuthForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            console.log(e);
+            HpdbApi._debug(e);
             hpdb._addTextToErrorBlock('')
             axios.put(
                 'http://localhost:9883/api/v1/rpc/auth',
@@ -98,13 +101,13 @@ export class HpdbApi extends VendorApi {
                     } else {
                         hpdb._addTextToErrorBlock("Сервер ответил ошибкой")
                     }
-                    console.log(e);
+                    HpdbApi._debug(e);
                 });
 
         });
     }
     initLogoutFormEvents() {
-        console.log('hpdb logout events init');
+        HpdbApi._debug('hpdb logout events init');
         let hpdb = this;
         let hpdbExit = document.getElementById('hpdb-logout');
         hpdbExit.onclick = function(e) {
@@ -120,14 +123,14 @@ export class HpdbApi extends VendorApi {
         });
         return new Promise(function(resolve, reject) {
             hpdbApi.get('api/auth/hpdb/resources').then(function (response) {
-                console.log(response);
+                HpdbApi._debug(response);
             });
 
             resolve([]);
         });
     }
     _handleAuthResponse(response) {
-        console.log("auth response", response)
+        HpdbApi._debug("auth response", response)
         let hpdb = this;
         hpdb.setAuthData({token: response.data.token});
         hpdb.login();
@@ -142,5 +145,10 @@ export class HpdbApi extends VendorApi {
             errorsBlock.removeChild(errorsBlock.lastChild);
         }
         errorsBlock.appendChild(newErrNode)
+    }
+    static _debug(obj) {
+        if (false) {
+            console.log(obj)
+        }
     }
 }

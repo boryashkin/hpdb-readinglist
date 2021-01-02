@@ -1,27 +1,30 @@
 import {authForm, authorizedBlock} from "../templates.js";
 import {AuthFormData, AuthFormHeader, AuthFormInput, TaskItem} from "../classes.js";
-import {VendorApi} from "./VendorApi.js";
-import {ApiContainer} from "./ApiContainer.js";
+import {AuthApi} from "./AuthApi.js";
+import {ApiContainer} from "../classes/ApiContainer.js";
 
 //todo: implement oauth2
-export class VkApi extends VendorApi {
+export class VkApi extends AuthApi {
     init() {
         let api = this;
         this.name = "Vk";
         this.icon = "images/icons/vk.png";
         return new Promise(function(resolve, reject) {
-            chrome.storage.sync.get(['vkApiStore'], function(result) {
-                api.setAuthData(result.vkApiStore);
+            chrome.storage.sync.get(['vkAuthStore'], function(result) {
+                api.setAuthData(result.vkAuthStore);
                 console.log(result);
                 console.log(api.getAuthData());
                 resolve(result);
             });
         });
     }
+    getBearerToken() {
+        return '';
+    }
     persistAuthData() {
         let vk = this;
         return new Promise(function(resolve, reject) {
-            chrome.storage.sync.set({vkApiStore: vk.getAuthData()}, function() {
+            chrome.storage.sync.set({vkAuthStore: vk.getAuthData()}, function() {
                 console.log('Saved auth data to db');
                 resolve();
             });

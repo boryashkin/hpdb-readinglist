@@ -97,3 +97,59 @@ export class AdditionalInputItem {
         }
     }
 }
+
+
+export class User {
+    constructor(email, createdAt) {
+        this.email = "";
+        this.createdAt = "";
+
+        if (typeof email === "string") {
+            this.email = email;
+        }
+        this.createdAt = createdAt;
+        try {
+            this.createdAt = new Date(this.createdAt);
+            this.createdAt = this.createdAt.toGMTString();
+        } catch (e) {
+            this.createdAt = createdAt;
+        }
+    }
+}
+
+export class Group {
+    constructor(data) {
+        this.id = data.id;
+        this.updatedAt = data.updatedAt;
+        this.showOnMain = data.showOnMain;
+        this.name = data.name;
+        this.slug = data.slug;
+        this.description = data.description;
+        this.logo = data.logo;
+    }
+}
+
+export class WebsiteGroupsResponse {
+    constructor(data) {
+        this.id = data.id;
+        this.groups = data.groups;
+    }
+}
+
+export class Website {
+    constructor(data) {
+        this.id = data.id;
+        this.homepage = data.homepage;
+        this.title = data.title;
+        this.description = data.description;
+        this.updatedAt = data.updatedAt;
+        try {
+            this.updatedAt = new Date(this.updatedAt);
+            this.updatedAt = this.updatedAt.toGMTString();
+        } catch (e) {
+            this.updatedAt = updatedAt;
+        }
+        this.reactions = data.reactions;
+    }
+
+}

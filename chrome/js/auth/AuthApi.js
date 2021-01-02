@@ -1,4 +1,4 @@
-export class VendorApi {
+export class AuthApi {
     constructor() {}
     getName() {
         return this.name;
@@ -11,6 +11,11 @@ export class VendorApi {
      * @returns bool
      */
     isAuthorized() {}
+
+    /**
+     * @return string
+     */
+    getBearerToken() {}
 
     /**
      * Fulfill internal variables, including authData

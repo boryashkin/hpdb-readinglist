@@ -53,8 +53,10 @@
             <div class="row">
                 <div class="col s12">
                     <ul id="main-tabs" class="tabs">
-                        <li class="tab col s3"><a class="active" href="#tasks">Сохраненки</a></li>
-                        <li class="tab col s3"><a href="#loginList">Вход</a></li>
+                        <li class="tab col s5"><a class="active" href="#tasks">Сохраненки</a></li>
+                        <li class="tab col s1">
+                            <a href="#loginList"><svg id="light" style="fill: rgba(238, 110, 115, 0.7);" enable-background="new 0 0 24 24" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><g><path d="m9 11c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5zm0-9c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4z"/></g><g><path d="m17.5 22h-17c-.276 0-.5-.224-.5-.5v-4c0-2.481 2.019-4.5 4.5-4.5h9c2.481 0 4.5 2.019 4.5 4.5v4c0 .276-.224.5-.5.5zm-16.5-1h16v-3.5c0-1.93-1.57-3.5-3.5-3.5h-9c-1.93 0-3.5 1.57-3.5 3.5z"/></g><g><path d="m23.5 11h-8c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5s-.224.5-.5.5z"/></g><g><path d="m19.5 15c-.128 0-.256-.049-.354-.146-.195-.195-.195-.512 0-.707l3.646-3.646-3.646-3.646c-.195-.195-.195-.512 0-.707s.512-.195.707 0l4 4c.195.195.195.512 0 .707l-4 4c-.097.096-.225.145-.353.145z"/></g></svg></a>
+                        </li>
                     </ul>
                 </div>
                 <div id="loginList" class="col s12">
@@ -70,6 +72,9 @@
                 <div id="tasks" class="col s12">
                     <div class="progress hide">
                         <div class="indeterminate"></div>
+                    </div>
+                    <div class="center section">
+                        <button class="btn btn-tiny" id="group-btn-add">+</button>
                     </div>
                     <ul class="collection" id="taskList">
                     </ul>

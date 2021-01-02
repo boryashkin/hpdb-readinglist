@@ -1,43 +1,28 @@
 import {ApiContainer} from "./classes/ApiContainer.js";
-import {VkApi} from "./classes/VkApi.js";
-import {HpdbApi} from "./classes/HpdbApi.js";
+import {HpdbApi} from "./auth/HpdbApi.js";
+import {HpdbApiV1} from "./classes/HpdbApiV1.js";
 
-let container = new ApiContainer([new HpdbApi()]);
+let container = new ApiContainer([new HpdbApi()], new HpdbApiV1(), window.navigator.userAgent);
 
-console.log('before init');
-(function () {
-    container.getEventTarget().dispatchEvent(new Event("beforeApisInit"));
-    container.initApis().then(function () {
-        console.log('after init');
-        container.renderApiAuthorizationTab();
-        container.initTaskListTab();
-        console.log('after rendering');
-        console.log('container events hired');
-        container.getEventTarget().dispatchEvent(new Event("afterApisInit"));
-    })
-        .then(function () {
-            let response = null;
-            response = axios.post(
-                'https://stats.borisd.ru/api/log/event',
-                {
-                    app: 'HpdbReadingList',
-                    event: 'initApis',
-                    version: container.version
-                },
-                {timeout: 3000}
-            )
-                .then(function (response) {
-                    console.log("Logged stat");
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+console.log('[popup] before init');
+(async function () {
+    container.runGui();
+    axios.post(
+        'https://stats.borisd.ru/api/log/event',
+        {
+            app: 'HpdbReadingList',
+            event: 'initApis',
+            version: container.version
+        },
+        {timeout: 3000}
+    )
+        .then(function (response) {
+            console.log("[popup] Logged stat");
+            console.log(response);
         })
-        .catch(function (e) {
-            console.error('Something goes wrong');
-            console.error(e);
+        .catch(function (error) {
+            console.error(error);
         });
-        console.log('ending of script');
+
     document.getElementById("extension-version").innerText = "v" + container.version;
 })();
